@@ -1,13 +1,16 @@
 package JavaEE.domain;
+
+import java.io.Serializable;
+
 /*
 用户
 */
-public class User {
+public class User implements Serializable {
     private int user_id;
     private String username;
     private String email_addr;//具有唯一性
     private String password;
-
+    private String salt;
 
     public int getUser_id() {
         return user_id;
@@ -41,6 +44,14 @@ public class User {
         this.password = password;
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -48,6 +59,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", email_addr='" + email_addr + '\'' +
                 ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
                 '}';
     }
 }

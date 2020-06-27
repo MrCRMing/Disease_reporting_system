@@ -2,6 +2,7 @@ package JavaEE.service.impl;
 
 import JavaEE.dao.CaseMapper;
 import JavaEE.domain.Case;
+import JavaEE.domain.User;
 import JavaEE.service.CaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,13 +21,19 @@ public class CaseServiceImpl implements CaseService {
     }
 
     @Override
-    public void deleteCase(int case_id) {
-        caseMapper.deleteCase(case_id);
+    public void deleteCase(int case_id, User operator) {
+        int effectedNum = caseMapper.deleteCase(case_id, operator.getUser_id());
+        if(effectedNum <=0){
+            throw new RuntimeException("删除失败");
+        }
     }
 
     @Override
-    public void updateCase(Case the_case) {
-        caseMapper.updateCase(the_case);
+    public void updateCase(Case the_case, User operator) {
+        int effectedNum = caseMapper.updateCase(the_case, operator.getUser_id());
+        if(effectedNum <=0){
+            throw new RuntimeException("删除失败");
+        }
     }
 
     @Override

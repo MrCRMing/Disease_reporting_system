@@ -1,6 +1,7 @@
 package JavaEE.service;
 
 import JavaEE.domain.Case;
+import JavaEE.domain.User;
 
 import java.util.List;
 import java.util.Map;
@@ -11,10 +12,10 @@ public interface CaseService {
     public void addCase(Case the_case);
 
     //删除案例
-    public void deleteCase(int case_id);
+    public void deleteCase(int case_id, User operator);
 
     //修改案例
-    public void updateCase(Case the_case);
+    public void updateCase(Case the_case, User operator);
 
     //单案例查询
     public Case findCase(int case_id);

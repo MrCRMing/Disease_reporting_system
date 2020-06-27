@@ -14,44 +14,41 @@
     </insert>
 
     <delete id="deleteCase"  >
-        delete  from tb_case where case_id=#{case_id}
+        delete  from tb_case where case_id=#{case_id} and publisher_id=#{uid}
     </delete>
 
     <update id="updateCase" parameterType="JavaEE.domain.Case">
         update tb_case
         <set>
-            <if test="patient_name!=null">
-                patient_name=#{patient_name},
+            <if test="case.patient_name!=null">
+                patient_name=#{case.patient_name},
             </if>
-            <if test="patient_id!=null">
-                patient_id=#{patient_id},
+            <if test="case.patient_id!=null">
+                patient_id=#{case.patient_id},
             </if>
-            <if test="patient_gender!=null">
-                patient_gender=#{patient_gender},
+            <if test="case.patient_gender!=null">
+                patient_gender=#{case.patient_gender},
             </if>
-            <if test="patient_birth_date!=null">
-                patient_birth_date=#{patient_birth_date},
+            <if test="case.patient_birth_date!=null">
+                patient_birth_date=#{case.patient_birth_date},
             </if>
-            <if test="patient_native_place!=null">
-                patient_native_place=#{patient_native_place},
+            <if test="case.patient_native_place!=null">
+                patient_native_place=#{case.patient_native_place},
             </if>
-            <if test="disease_type!=null">
-                disease_type=#{disease_type},
+            <if test="case.disease_type!=null">
+                disease_type=#{case.disease_type},
             </if>
-            <if test="disease_time!=null">
-                disease_time=#{disease_time},
+            <if test="case.disease_time!=null">
+                disease_time=#{case.disease_time},
             </if>
-            <if test="disease_place!=null">
-                disease_place=#{disease_place},
+            <if test="case.disease_place!=null">
+                disease_place=#{case.disease_place},
             </if>
-            <if test="disease_description!=null">
-                disease_description=#{disease_description},
-            </if>
-            <if test="publisher_id!=0">
-                publisher_id=#{publisher_id},
+            <if test="case.disease_description!=null">
+                disease_description=#{case.disease_description},
             </if>
         </set>
-        where case_id=#{case_id}
+        where case_id=#{case_id} and publisher_id=#{uid}
     </update>
 
     <select id="findCase" resultType="JavaEE.domain.Case" >

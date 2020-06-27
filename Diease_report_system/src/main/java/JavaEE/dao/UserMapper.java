@@ -1,6 +1,7 @@
 package JavaEE.dao;
 
 import JavaEE.domain.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,4 +17,7 @@ public interface UserMapper {
 
     //查询所有用户接口
     public List<User> findAll();
+
+
+    User getUserByEmailAddr(@Param("emailAddr") String emailAddr);
 }

@@ -1,9 +1,11 @@
 package JavaEE.controller;
 
 import JavaEE.domain.Case;
+import JavaEE.domain.User;
 import JavaEE.service.CaseService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +41,8 @@ public class CaseController {
         String disease_time= request.getParameter("disease_time");
         String disease_place=request.getParameter("disease_place");
         String disease_description=request.getParameter("disease_description");
-        String publisher_id=request.getParameter("publisher_id");
+//        String publisher_id=request.getParameter("publisher_id");
+        int publisher_id = ((User)SecurityUtils.getSubject().getPrincipal()).getUser_id();
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Case the_case=new Case();
@@ -52,7 +55,7 @@ public class CaseController {
         the_case.setDisease_time(format.parse(disease_time));
         the_case.setDisease_place(disease_place);
         the_case.setDisease_description(disease_description);
-        the_case.setPublisher_id(Integer.valueOf(publisher_id));
+        the_case.setPublisher_id(publisher_id);
 
         String code="";
         String msg="";
@@ -93,10 +96,11 @@ public class CaseController {
 
         String code="";
         String msg="";
+        User operator = ((User)SecurityUtils.getSubject().getPrincipal());
         //调用service方法
         try{
 
-            caseService.deleteCase(Integer.valueOf(case_id));
+            caseService.deleteCase(Integer.valueOf(case_id),operator);
             code="1000";
             msg="删除成功";
         }catch (Exception e){
@@ -136,6 +140,8 @@ public class CaseController {
         String disease_description=request.getParameter("disease_description");
         String publisher_id=request.getParameter("publisher_id");
 
+        User operator = ((User)SecurityUtils.getSubject().getPrincipal());
+
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Case the_case=new Case();
         the_case.setCase_id(Integer.valueOf(case_id));
@@ -152,15 +158,15 @@ public class CaseController {
         }
         the_case.setDisease_place(disease_place);
         the_case.setDisease_description(disease_description);
-        if(publisher_id!=null){
-            the_case.setPublisher_id(Integer.valueOf(publisher_id));
-        }
+//        if(publisher_id!=null){
+//            the_case.setPublisher_id(operator.getUser_id());
+//        }
 
         String code="";
         String msg="";
         //调用service方法
         try{
-            caseService.updateCase(the_case);
+            caseService.updateCase(the_case, operator);
             code="1000";
             msg="修改成功";
             //更新要返回的case数据
