@@ -12,10 +12,10 @@ public interface CaseService {
     public void addCase(Case the_case);
 
     //删除案例
-    public void deleteCase(int case_id, User operator);
+    public void deleteCase(int case_id);
 
     //修改案例
-    public void updateCase(Case the_case, User operator);
+    public void updateCase(Case the_case);
 
     //单案例查询
     public Case findCase(int case_id);

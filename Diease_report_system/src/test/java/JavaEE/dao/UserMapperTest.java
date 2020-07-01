@@ -18,4 +18,10 @@ public class UserMapperTest {
         User userByEmailAddr = userMapper.getUserByEmailAddr("729788221@qq.com");
         System.out.println(userByEmailAddr);
     }
+
+    @Test
+    public void testGet(){
+        User userByEmailAddr = userMapper.getUserByIdLite(1);
+        System.out.println(userByEmailAddr);
+    }
 }

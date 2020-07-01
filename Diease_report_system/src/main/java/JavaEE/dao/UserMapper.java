@@ -18,6 +18,8 @@ public interface UserMapper {
     //查询所有用户接口
     public List<User> findAll();
 
-
+    void addRole(@Param("user") User user, @Param("role_id") int role_id);
     User getUserByEmailAddr(@Param("emailAddr") String emailAddr);
+    User getUserById(@Param("id") int id);
+    User getUserByIdLite(@Param("id") int id);
 }

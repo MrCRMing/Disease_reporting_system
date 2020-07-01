@@ -5,18 +5,18 @@ import java.io.Serializable;
 /*
 用户
 */
-public class User implements Serializable {
-    private int user_id;
+public class User  implements Serializable {
+    private Integer user_id;
     private String username;
     private String email_addr;//具有唯一性
     private String password;
     private String salt;
 
-    public int getUser_id() {
+    public Integer getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(int user_id) {
+    public void setUser_id(Integer user_id) {
         this.user_id = user_id;
     }
 

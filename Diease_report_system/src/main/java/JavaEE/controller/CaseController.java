@@ -39,7 +39,7 @@ public class CaseController {
         String patient_native_place=request.getParameter("patient_native_place");
         String disease_type=request.getParameter("disease_type");
         String disease_time= request.getParameter("disease_time");
-        String disease_place=request.getParameter("disease_place");
+        String disease_place_id=request.getParameter("disease_place_id");
         String disease_description=request.getParameter("disease_description");
 //        String publisher_id=request.getParameter("publisher_id");
         int publisher_id = ((User)SecurityUtils.getSubject().getPrincipal()).getUser_id();
@@ -49,14 +49,14 @@ public class CaseController {
         the_case.setPatient_name(patient_name);
         the_case.setPatient_id(patient_id);
         the_case.setPatient_gender(patient_gender);
-        the_case.setPatient_birth_date(new Date());
+        the_case.setPatient_birth_date(format.parse(patient_birth_date));
         the_case.setPatient_native_place(patient_native_place);
         the_case.setDisease_type(disease_type);
         the_case.setDisease_time(format.parse(disease_time));
-        the_case.setDisease_place(disease_place);
+        the_case.setDisease_place_id(Integer.valueOf(disease_place_id));
         the_case.setDisease_description(disease_description);
         the_case.setPublisher_id(publisher_id);
-
+        System.out.println(the_case);
         String code="";
         String msg="";
         //调用service方法
@@ -100,7 +100,7 @@ public class CaseController {
         //调用service方法
         try{
 
-            caseService.deleteCase(Integer.valueOf(case_id),operator);
+            caseService.deleteCase(Integer.valueOf(case_id));
             code="1000";
             msg="删除成功";
         }catch (Exception e){
@@ -136,9 +136,9 @@ public class CaseController {
         String patient_native_place=request.getParameter("patient_native_place");
         String disease_type=request.getParameter("disease_type");
         String disease_time= request.getParameter("disease_time");
-        String disease_place=request.getParameter("disease_place");
+        String disease_place_id=request.getParameter("disease_place_id");
         String disease_description=request.getParameter("disease_description");
-        String publisher_id=request.getParameter("publisher_id");
+        //String publisher_id=request.getParameter("publisher_id");
 
         User operator = ((User)SecurityUtils.getSubject().getPrincipal());
 
@@ -156,7 +156,7 @@ public class CaseController {
         if(disease_time!=null){
             the_case.setDisease_time(format.parse(disease_time));
         }
-        the_case.setDisease_place(disease_place);
+        the_case.setDisease_place_id(Integer.valueOf(disease_place_id));
         the_case.setDisease_description(disease_description);
 //        if(publisher_id!=null){
 //            the_case.setPublisher_id(operator.getUser_id());
@@ -166,7 +166,7 @@ public class CaseController {
         String msg="";
         //调用service方法
         try{
-            caseService.updateCase(the_case, operator);
+            caseService.updateCase(the_case);
             code="1000";
             msg="修改成功";
             //更新要返回的case数据

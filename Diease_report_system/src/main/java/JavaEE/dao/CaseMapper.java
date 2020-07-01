@@ -1,6 +1,7 @@
 package JavaEE.dao;
 
 import JavaEE.domain.Case;
+import JavaEE.domain.statistics.StatisticsPerPlaceDay;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -13,10 +14,10 @@ public interface CaseMapper {
     public int addCase(Case the_case);
 
     //删除案例
-    public int deleteCase(@Param("case_id") int case_id, @Param("uid")int uid);
+    public int deleteCase(@Param("case_id") int case_id);
 
     //修改案例
-    public int updateCase(@Param("case")Case the_case, @Param("uid")int uid);
+    public int updateCase(@Param("case")Case the_case);
 
     //单案例查询
     public Case findCase(int case_id);
@@ -26,4 +27,6 @@ public interface CaseMapper {
 
     //全案例查询
     public List<Case> findAllCase();
+
+    List<StatisticsPerPlaceDay> getStatistics();
 }

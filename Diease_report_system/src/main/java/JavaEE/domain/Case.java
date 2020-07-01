@@ -5,7 +5,7 @@ import java.util.Date;
 案例
 */
 public class Case {
-    private int case_id;
+    private Integer case_id;
     private String patient_name;
     private String patient_id;
     private String patient_gender;
@@ -13,15 +13,16 @@ public class Case {
     private String patient_native_place;
     private String disease_type;
     private Date disease_time;
-    private String disease_place;
+    private Integer disease_place_id;
     private String disease_description;
     private int publisher_id;
 
-    public int getCase_id() {
+
+    public Integer getCase_id() {
         return case_id;
     }
 
-    public void setCase_id(int case_id) {
+    public void setCase_id(Integer case_id) {
         this.case_id = case_id;
     }
 
@@ -81,12 +82,12 @@ public class Case {
         this.disease_time = disease_time;
     }
 
-    public String getDisease_place() {
-        return disease_place;
+    public Integer getDisease_place_id() {
+        return disease_place_id;
     }
 
-    public void setDisease_place(String disease_place) {
-        this.disease_place = disease_place;
+    public void setDisease_place_id(Integer disease_place_id) {
+        this.disease_place_id = disease_place_id;
     }
 
     public String getDisease_description() {
@@ -116,7 +117,7 @@ public class Case {
                 ", patient_native_place='" + patient_native_place + '\'' +
                 ", disease_type='" + disease_type + '\'' +
                 ", disease_time=" + disease_time +
-                ", disease_place='" + disease_place + '\'' +
+                ", disease_place_id=" + disease_place_id +
                 ", disease_description='" + disease_description + '\'' +
                 ", publisher_id=" + publisher_id +
                 '}';

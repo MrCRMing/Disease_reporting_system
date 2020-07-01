@@ -13,6 +13,8 @@ public class PermissionMapperTest extends BaseTest {
     @Test
     public void testGet(){
         List<Permission> byUserId = permissionMapper.getByUserId(1);
-        System.out.println(byUserId);
+        for (Permission p: byUserId){
+            System.out.println(p);
+        }
     }
 }

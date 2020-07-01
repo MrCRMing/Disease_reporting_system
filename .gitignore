@@ -73,3 +73,6 @@ Diease_report_system/target/Disease_report_system/WEB-INF/classes/applicationCon
 Diease_report_system/target/Disease_report_system/WEB-INF/classes/dbconfig.properties
 Diease_report_system/target/Disease_report_system/WEB-INF/classes/log4j.properties
 Diease_report_system/target/Disease_report_system/WEB-INF/classes/springmvc.xml
+.idea/.name
+.idea
+Diease_report_system/target

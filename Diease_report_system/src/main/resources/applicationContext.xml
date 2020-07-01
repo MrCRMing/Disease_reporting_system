@@ -21,9 +21,12 @@
 
     <!--Spring整合MyBatis框架-->
     <!--配置连接池-->
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:dbconfig.properties"></property>
-    </bean>
+<!--    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+<!--        <property name="location" value="classpath:dbconfig.properties"></property>-->
+<!--    </bean>-->
+    <!-- 加载配置文件 -->
+    <context:property-placeholder location="classpath:properties/*.properties"/>
+
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${jdbc.driver}"></property>
         <property name="url" value="${jdbc.url}"></property>
@@ -35,6 +38,8 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"></property>
         <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+        <!--载入mybatis配置文件-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
     </bean>
 
 
@@ -44,23 +49,15 @@
     </bean>
 
     <!--配置Spring声明式事务管理    -->
-    <!--配置事务管理器    -->
-    <bean id="transactionManager " class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"></property>
+    <!-- 配置事务管理器 -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!-- 注入数据库连接池 -->
+        <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <!--配置事务通知    -->
-    <tx:advice id="txAdvice" transaction-manager="transactionManager ">
-        <tx:attributes>
-            <tx:method name="find*" read-only="true"/>
-            <tx:method name="*" isolation="DEFAULT"></tx:method>
-        </tx:attributes>
-    </tx:advice>
-
-    <!--配置AOP增强    -->
-    <aop:config>
-        <aop:advisor advice-ref="txAdvice" pointcut="execution(* JavaEE.service.impl.*ServiceImpl.*(..))"></aop:advisor>
-    </aop:config>
+    <!-- 配置基于注解的声明式事务 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
 
     <!-- 配置ehcache缓存bean，导入ehcache并新建配置文件 -->
@@ -106,8 +103,20 @@
                 /case/updateCase = perms["/case/modify"]
                 /case/addCase = perms["/case/add"]
                 /case/** = perms["/case/read"]
+                /post/addPost = perms["/post/add"]
+                /post/deletePost = perms["/post/modify"]
+                /post/** = anon
+                /reply/addPost = perms["/reply/add"]
+                /reply/deletePost = perms["/reply/modify"]
+                /reply/** = anon
+                /statisticsPerDayPlace/clearAll = roles["admin"]
+                /statisticsPerDayPlace/renew = roles["admin"]
                 /**= anon
             </value>
         </property>
     </bean>
+
+
+    <import resource="classpath:spring-redis.xml"></import>
+
 </beans>

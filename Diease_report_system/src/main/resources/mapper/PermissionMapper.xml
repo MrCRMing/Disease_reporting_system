@@ -6,6 +6,6 @@
     <select id="getByUserId" resultType="JavaEE.domain.Permission">
         SELECT permission_id, permission_name
         FROM tb_permission NATURAL JOIN tb_role_permission NATURAL JOIN tb_role
-        WHERE role_id in(SELECT role_id FROM tb_user_role WHERE user_id=1)
+        WHERE role_id in(SELECT role_id FROM tb_user_role WHERE user_id=#{user_id})
     </select>
 </mapper>

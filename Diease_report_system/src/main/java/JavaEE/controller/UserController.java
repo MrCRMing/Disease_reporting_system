@@ -34,7 +34,7 @@ public class UserController {
         String username= request.getParameter("username");
         String email_addr=request.getParameter("email_addr");
         String password=request.getParameter("password");
-        String role=request.getParameter("role");
+        String role_id=request.getParameter("role_id");
         User user=new User();
         user.setUsername(username);
         user.setEmail_addr(email_addr);
@@ -44,13 +44,13 @@ public class UserController {
         System.out.println(user);
         //调用service方法
         try{
-            userService.register(user,role);
+            userService.register(user, Integer.parseInt(role_id));
             code="1000";
             msg="注册成功";
         }catch (Exception e){
             e.printStackTrace();
             code="1001";
-            msg="注册失败，可能账号已注册过";
+            msg="注册失败，可能账号已注册过,也可能是role不对嗷";
             user=null;
         }
 

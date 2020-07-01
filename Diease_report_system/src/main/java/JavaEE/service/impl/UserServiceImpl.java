@@ -8,6 +8,7 @@ import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -17,12 +18,14 @@ public class UserServiceImpl implements UserService {
     private SecureRandomNumberGenerator secureRandomNumberGenerator = new SecureRandomNumberGenerator();
 
     @Override
-    public void register(User user,String role) {
+    @Transactional
+    public void register(User user,int role_id) {
         String salt = secureRandomNumberGenerator.nextBytes().toHex();
         String cipherText = new Md5Hash(user.getPassword(),salt).toString();
         user.setSalt(salt);
         user.setPassword(cipherText);
         userMapper.addUser(user);
+        userMapper.addRole(user,role_id);
         //可以在这里用role参数来设置该用户的权限
     }
 

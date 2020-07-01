@@ -77,6 +77,8 @@ public class ShiroRealm extends AuthorizingRealm {
         for (Permission permission : permissions) {
             permissionNames.add(permission.getPermission_name());
         }
+//        System.out.println(roles);
+//        System.out.println(permissions);
         //此处把当前subject对应的权限信息交给shiro，当调用hasPermission的时候就会根据这些信息判断
         authorizationInfo.setStringPermissions(permissionNames);
         return authorizationInfo;
